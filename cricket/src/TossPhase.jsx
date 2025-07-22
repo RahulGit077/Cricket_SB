@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GameContext } from "./context/GameContext";
 
-const TossPhase = ({ handleToss, tossResult }) => {
+const TossPhase = () => {
+  const { handleToss, tossResult } = useContext(GameContext);
+
   return (
     <div>
       <h2>Toss Time</h2>

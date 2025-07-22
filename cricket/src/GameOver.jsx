@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GameContext } from "./context/GameContext";
 
-const GameOver = ({ gameState }) => {
+const GameOver = () => {
+  const { gameState } = useContext(GameContext);
+
   return (
     <div>
       <h2>Game Over</h2>
-      {gameState.isUserBatFirst ? (
+      {gameState.isUserBatFirst === 1 ? (
         <div>
           <h3>Your Score: {gameState.inning1Score}</h3>
           <h3>Opponent Score: {gameState.inning2Score}</h3>

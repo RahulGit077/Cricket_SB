@@ -1,19 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GameContext } from "./context/GameContext";
 
-const InningChoicePhase = ({
-  handleInningChoice,
-  isUserBatFirst,
-  startGame,
-  tossResult,
-}) => {
-  // console.log("handleInning");
+const InningChoicePhase = () => {
+  const { handleInningChoice, gameState, startGame } = useContext(GameContext);
+
   return (
-    <div>
-      {/* {console.log(tossResult, isUserBatFirst)} */}
-      {tossResult === "won" ? (
-        <div>
+    <div className="inning-choice-phase">
+      {gameState.toss === 1 ? (
+        <div className="toss-result">
           <h2>You have won the toss!</h2>
-          {!isUserBatFirst ? (
+          {!gameState.isUserBatFirst ? (
             <div>
               <p>Choose to bat or bowl:</p>
               <button onClick={() => handleInningChoice("Bat")}>Bat</button>
@@ -21,19 +17,23 @@ const InningChoicePhase = ({
             </div>
           ) : (
             <div>
-              You choose to {isUserBatFirst === "yes" ? "bat" : "bowl"} first.
+              You choose to {gameState.isUserBatFirst === 1 ? "bat " : "bowl "}
+              first.
             </div>
           )}
         </div>
       ) : (
-        tossResult === "lost" && (
+        gameState.toss === -1 && (
           <div>
             <h2>Opponent have won the toss!</h2>
-            <p>Opponent choose to {isUserBatFirst === "no" ? "bat" : "bowl"}</p>
+            <p>
+              Opponent choose to
+              {gameState.isUserBatFirst === -1 ? " bat " : " bowl "} first.
+            </p>
           </div>
         )
       )}
-      {isUserBatFirst && (
+      {(gameState.isUserBatFirst === 1 || gameState.isUserBatFirst === -1) && (
         <div>
           <h2>Game Ready to Start!</h2>
           <button onClick={startGame}>Start Game</button>

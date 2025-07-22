@@ -1,21 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GameContext } from "./context/GameContext";
 
-const Inning2Phase = ({
-  handleInning2,
-  inningBalls,
-  inningScore,
-  inningWickets,
-  userChoice,
-  opponentChoice,
-  gameState,
-}) => {
+const Inning2Phase = () => {
+  const { handleInning2, userChoice, opponentChoice, gameState } =
+    useContext(GameContext);
+
   return (
     <div>
       <h4>Target : {gameState.inning1Score + 1}</h4>
-      <h3>Score : {inningScore + " / " + inningWickets}</h3>
-      <h3>Overs : {Math.floor(inningBalls / 6) + "." + (inningBalls % 6)}</h3>
+      <h3>
+        Score : {gameState.inning2Score + " / " + gameState.inning2Wickets}
+      </h3>
+      <h3>
+        Overs :{" "}
+        {Math.floor(gameState.inning2Balls / 6) +
+          "." +
+          (gameState.inning2Balls % 6)}
+      </h3>
       <div>
-        {!gameState.isUserBatFirst ? "Hit the Ball" : "Bowl the Ball"}
+        {gameState.isUserBatFirst === -1 ? "Hit the Ball" : "Bowl the Ball"}
         {gameState.phase === "INNING2" && (
           <div>
             {!gameState.isUserBatFirst && (
